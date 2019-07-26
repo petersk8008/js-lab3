@@ -39,8 +39,10 @@ class AddressBook {
     };
     delete(name) {
         //removes contact based on provided name
+        //declared variable index. Index is used to find the index of the item we are trying to delete
+        //this.contacts refers to our array of contacts. We set variable contact in the predicate of findIndex
+        //findIndex goes through our contacts array and returns
         const index = this.contacts.findIndex((contact) => {
-            console.log(contact);
             return contact.name === name;
         });
         if (index >= 0) {
