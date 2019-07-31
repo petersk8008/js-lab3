@@ -18,6 +18,27 @@
 // 4. Call the addressBook’s delete method at least once.
 // 5. Call the addressBook’s print method at least once.
 
+
+function handleSubmit(event) {
+    event.preventDefault();
+    const name = event.target[0].value;
+    const email = event.target[1].value;
+    const phone = event.target[2].value;
+    const relation = event.target[3].value;
+
+    newAddressBook.add(name, email, phone, relation);
+    newAddressBook.display();
+
+}
+
+function handleDelete(event) {
+
+    if (!event.target.classList.contains('delete-btn')) return;
+
+    newAddressBook.contacts.splice(Number(event.target.attributes[0].value), 1);
+    newAddressBook.display();
+}
+
 class Contact {
     constructor (name, email, phone, relation) {
         this.name = name;
@@ -33,11 +54,15 @@ class AddressBook {
         this.contacts = [];
 
     };
+
+    //
     add(name, email, phone, relation){
         const newContact = new Contact(name, email, phone, relation);
         this.contacts.push(newContact);
+
+
     };
-    delete(name) {
+    delete(event) {
         //removes contact based on provided name
         //declared variable index. Index is used to find the index of the item we are trying to delete
         //this.contacts refers to our array of contacts. We set variable contact in the predicate of findIndex
@@ -48,6 +73,8 @@ class AddressBook {
         if (index >= 0) {
             this.contacts.splice(index, 1);
         }
+        this.display();
+
     };
 
     print() {
@@ -55,12 +82,42 @@ class AddressBook {
             console.log(value);
         })
     };
+
+    display() {
+        //update the DOM to display all the contacts from the AddressBook
+        document.querySelector(".info-container").innerHTML = "";
+        // const infoContainer = document.querySelector('.info-container');
+        this.contacts.forEach((person, index) => {
+            const div = document.createElement('div');
+            div.innerHTML = `
+            <p>Name: ${person.name}</p>
+            <p>Email: ${person.email}</p>
+            <p>Phone: ${person.phone}</p>
+            <p>Relation: ${person.relation}</p>
+            <button index=${index} class="delete-btn"><i class="fas fa-trash"></i></button>
+        `;
+            document.querySelector('.info-container').append(div);
+        });
+    }
 }
+
 const newAddressBook = new AddressBook();
-newAddressBook.add("Kody Peters", "222@gmail.com", "9893073434", "self");
-newAddressBook.add("Jody Peters", "111@gmail.com", "9893075434", "father");
-newAddressBook.add("Pamela Peters", "333@gmail.com", "9893072334", "mother");
-newAddressBook.add("Taylor Peters", "444@gmail.com", "9892387392", "sister");
-newAddressBook.print();
-newAddressBook.delete("Pamela Peters");
-newAddressBook.print();
+const infoContainer = document.querySelector(".info-container");
+document.querySelector("form").addEventListener("submit", handleSubmit);
+infoContainer.addEventListener("click", handleDelete);
+
+
+
+
+
+
+
+
+
+// newAddressBook.add("Kody Peters", "222@gmail.com", "9893073434", "self");
+// newAddressBook.add("Jody Peters", "111@gmail.com", "9893075434", "father");
+// newAddressBook.add("Pamela Peters", "333@gmail.com", "9893072334", "mother");
+// newAddressBook.add("Taylor Peters", "444@gmail.com", "9892387392", "sister");
+// newAddressBook.print();
+// newAddressBook.delete("Pamela Peters");
+// newAddressBook.print();

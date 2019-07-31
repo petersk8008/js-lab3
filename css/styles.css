@@ -1,0 +1,11 @@
+.delete-btn {
+    /*background-image: url("")*/
+    position: relative;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+}
+
+.delete-btn i {
+    color: red;
+}
