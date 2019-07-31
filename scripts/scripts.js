@@ -62,7 +62,7 @@ class AddressBook {
 
 
     };
-    delete(event) {
+    deleteAt(name) {
         //removes contact based on provided name
         //declared variable index. Index is used to find the index of the item we are trying to delete
         //this.contacts refers to our array of contacts. We set variable contact in the predicate of findIndex
@@ -89,6 +89,7 @@ class AddressBook {
         // const infoContainer = document.querySelector('.info-container');
         this.contacts.forEach((person, index) => {
             const div = document.createElement('div');
+            div.classList.add("resultContainer");
             div.innerHTML = `
             <p>Name: ${person.name}</p>
             <p>Email: ${person.email}</p>
@@ -106,6 +107,11 @@ const infoContainer = document.querySelector(".info-container");
 document.querySelector("form").addEventListener("submit", handleSubmit);
 infoContainer.addEventListener("click", handleDelete);
 
+newAddressBook.add("Kody Peters", "222@gmail.com", "9893073434", "self");
+newAddressBook.add("Jody Peters", "111@gmail.com", "9893075434", "father");
+newAddressBook.add("Pamela Peters", "333@gmail.com", "9893072334", "mother");
+newAddressBook.add("Taylor Peters", "444@gmail.com", "9892387392", "sister");
+newAddressBook.display();
 
 
 
@@ -114,10 +120,6 @@ infoContainer.addEventListener("click", handleDelete);
 
 
 
-// newAddressBook.add("Kody Peters", "222@gmail.com", "9893073434", "self");
-// newAddressBook.add("Jody Peters", "111@gmail.com", "9893075434", "father");
-// newAddressBook.add("Pamela Peters", "333@gmail.com", "9893072334", "mother");
-// newAddressBook.add("Taylor Peters", "444@gmail.com", "9892387392", "sister");
 // newAddressBook.print();
 // newAddressBook.delete("Pamela Peters");
 // newAddressBook.print();
